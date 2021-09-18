@@ -15,7 +15,6 @@ page = BeautifulSoup(html, 'html.parser')
 das = page.find('table')('tr')[1:]
 for da in das:
     lines = da('td')
-    # print(lines)
     council_reference = lines[3].get_text().strip()
     address = lines[1].get_text() + ', Tasmania, Australia'
     description = lines[0].get_text()
