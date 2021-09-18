@@ -18,19 +18,17 @@ das = page.find('table')('tr', 'file')
 # print(das)
 
 for da in das:
-    print(da.find('a'))
     element = da.find('a')
-#     council_reference = lines[3].get_text().strip()
-#     address = lines[1].get_text() + ', Tasmania, Australia'
-#     description = lines[0].get_text()
+    council_reference, address, description, rawdate = element.get_text().split('-')
+    on_notice_to = parse(' '.join(rawdate.split()[-3:])).strftime('%Y-%m-%d')
     info_url = element['href']
     record = {
-#       'council_reference': council_reference,
-#       'address': address,
-#       'description': description,
+      'council_reference': council_reference.strip(),
+      'address': address.strip() + ', Tasmania, Australia',
+      'description': description.strip(),
       'info_url': info_url,
-#       'date_scraped': date_scraped,
-#       'on_notice_to': on_notice_to
+      'date_scraped': date_scraped,
+      'on_notice_to': on_notice_to
     }
     logging.debug(record)
     scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name="data")
