@@ -2,6 +2,8 @@
 
 import logging
 import importlib
+import os
+import scraperwiki
 
 councils = ['breakoday', 'brighton', 'burnie', 'centralcoast', 'centralhighlands', 'circularhead',
             # 'clarence',
@@ -14,6 +16,7 @@ councils = ['breakoday', 'brighton', 'burnie', 'centralcoast', 'centralhighlands
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
+    os.environ["SCRAPERWIKI_DATABASE_NAME"] = "sqlite:///data.sqlite"
     records = []
     for council in councils:
         logging.debug(council)
@@ -27,3 +30,4 @@ if __name__ == '__main__':
         records = records + newrecords
     for record in records:
         logging.debug(record)
+        scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
