@@ -10,17 +10,16 @@ def councildas():
     html = scraperwiki.scrape(applications_url)
     date_scraped = datetime.now().isoformat()
     page = BeautifulSoup(html, 'html.parser')
-
     das = page.find('table')('tr')[1:]
     records = []
     for da in das:
         lines = da('td')
-        council_reference = lines[3].get_text().strip()
-        address = lines[1].get_text() + ', Tasmania, Australia'
-        description = lines[0].get_text()
+        council_reference = lines[3].text.strip()
+        address = lines[1].text + ', Tasmania, Australia'
+        description = lines[0].text
         info_url = lines[3].find('a')['href']
         try:
-            on_notice_to = parse(lines[2].get_text()).strftime('%Y-%m-%d')
+            on_notice_to = parse(lines[2].text).strftime('%Y-%m-%d')
         except ParserError:
             on_notice_to = ''
         record = {

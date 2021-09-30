@@ -14,11 +14,11 @@ def councildas():
     records = []
     for da in das:
         lines = da('td')
-        council_reference = lines[3].get_text().strip()
-        address = lines[1].get_text() + ', Tasmania, Australia'
-        description = lines[0].get_text()
+        council_reference = lines[3].text.strip()
+        address = lines[1].text + ', Tasmania, Australia'
+        description = lines[0].text
         info_url = lines[3].find('a')['href']
-        on_notice_to = datetime.strptime(lines[2].get_text(), '%d %B %Y').strftime('%Y-%m-%d')
+        on_notice_to = datetime.strptime(lines[2].text, '%d %B %Y').strftime('%Y-%m-%d')
         record = {
           'council_reference': council_reference,
           'address': address,
