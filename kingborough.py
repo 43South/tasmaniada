@@ -15,8 +15,12 @@ def councildas():
     for da in dalist.find_all('tr'):
         cells = da.find_all('td')
         if len(cells) > 0:
-            # TODO: Address sometimes has titles of form CT114677/105, semicolon seperated. Could strip.
-            address = cells[0].text + ', Tasmania, Australia'
+            address = cells[0].text
+            # this might break if there's, say, '1 HIGH CT' as an address
+            ctpos = address.find(' CT')
+            if ctpos > 0:
+                address = address[:ctpos - 1]
+            address = address + ', Tasmania, Australia'
             on_notice_from = datetime.strptime(cells[1].text, '%d %b %Y').strftime('%Y-%m-%d')
             on_notice_to = datetime.strptime(cells[2].text, '%d %b %Y').strftime('%Y-%m-%d')
             description = cells[3].text
@@ -40,4 +44,4 @@ if __name__ == '__main__':
     records = councildas()
     for record in records:
         logging.debug(record)
-        scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
+        # scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')

@@ -5,7 +5,7 @@ from datetime import datetime
 from dateutil.parser import parse
 import logging
 
-# TODO: failed to run
+# TODO: failed to run. Gets HTTPGone sometimes. Maybe it's too fast. Retry?
 
 def councildas():
     applications_url = 'https://www.latrobe.tas.gov.au/services/building-and-planning-services/planningapp'
@@ -47,4 +47,4 @@ if __name__ == '__main__':
     records = councildas()
     for record in records:
         logging.debug(record)
-        scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
+        # scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')

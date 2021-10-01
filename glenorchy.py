@@ -17,8 +17,8 @@ def councildas():
     for da in das:
         refandaddress = da.find('a').text.strip()
         council_reference, dummy, address = refandaddress.split(' ', 2)
-        # TODO: Address is sometimes capitals. Could put into titlecase
-        address = address + ', Tasmania, Australia'
+        # Address is sometimes capitals. Could put into titlecase
+        address = address.title() + ', Tasmania, Australia'
         # some have one link, some have two
         info_url = da('a')[0]['href']
         # print(da)

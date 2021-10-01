@@ -6,7 +6,7 @@ import logging
 
 # This is horribly fragile
 
-# TODO: scraper failing
+# TODO: scraper failing sometimes. Unknown cause
 
 
 def councildas():
@@ -40,10 +40,11 @@ def councildas():
         records = records + [record]
     return records
 
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     os.environ["SCRAPERWIKI_DATABASE_NAME"] = "sqlite:///data.sqlite"
     records = councildas()
     for record in records:
         logging.debug(record)
-        scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
+        # scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')

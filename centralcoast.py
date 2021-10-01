@@ -17,10 +17,10 @@ def councildas():
     expiryprefixlen = len('Notification expiry date - ')
     records = []
     for da in das:
-        description, expiryraw = da.find('span', 'excerpt').text.split(')')
+        descriptionraw, expiryraw = da.find('span', 'excerpt').text.split(')')
+        description = descriptionraw.split('(')[0].strip()
         on_notice_to = parse(expiryraw.split('[')[1][expiryprefixlen:-1]).strftime('%Y-%m-%d')
         council_reference, dummy, address = da.find('a').text.split(' ', 2)
-        # TODO: address has (8MB etc on the end
         address = address + ', Tasmania, Australia'
         info_url = da.find('a')['href']
         record = {
@@ -41,4 +41,4 @@ if __name__ == '__main__':
     records = councildas()
     for record in records:
         logging.debug(record)
-        scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
+        # scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')

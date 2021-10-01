@@ -42,4 +42,4 @@ if __name__ == '__main__':
     records = councildas()
     for record in records:
         logging.debug(record)
-        scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
+        # scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')

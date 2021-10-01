@@ -15,8 +15,8 @@ def councildas():
     records = []
     for da in das:
         description = da.next_sibling
-        # TODO: council_reference is WRONG. This is the land title. Referenc is in heading above
-        address, council_reference = da.find_next('strong', string=re.compile('LOCATION')).next_sibling.rsplit('(', 1)
+        address, dummy = da.find_next('strong', string=re.compile('LOCATION')).next_sibling.rsplit('(', 1)
+        council_reference = da.parent.previous.previous.previous
         info_url = 'https://georgetown.tas.gov.au/' + da.find_next('a')['href']
         on_notice_to = parse(da.find_next('strong', string=re.compile('CLOSES')).next_sibling.strip()).strftime('%Y-%m-%d')
         record = {
@@ -36,4 +36,4 @@ if __name__ == '__main__':
     records = councildas()
     for record in records:
         logging.debug(record)
-        scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
+        # scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')

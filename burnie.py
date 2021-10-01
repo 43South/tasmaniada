@@ -18,8 +18,11 @@ def councildas():
         council_reference = da.find('p', 'da-application-number').text
         description = da('p')[-1].text
         info_url = da.find('a')['href']
-        # TODO: should cut off the postcode from address
-        address = da.find('p', 'list-item-address').text + ', Tasmania, Australia'
+        address = da.find('p', 'list-item-address').text
+        # strip off the postcode (could always put it back, I guess)
+        if address[-4:].isdecimal():
+            address = address[:-5]
+        address = address + ', Tasmania, Australia'
         on_notice_to = parse(da.find('p', 'display-until-date').text[ondisplayprefix:]).strftime('%Y-%m-%d')
         record = {
           'council_reference': council_reference,
@@ -38,4 +41,4 @@ if __name__ == '__main__':
     records = councildas()
     for record in records:
         logging.debug(record)
-        scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
+        # scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')

@@ -18,9 +18,11 @@ def councildas():
         if len(column) == 0:
             continue
         description = column[0].text.strip()
-        # TODO: council_reference is WRONG. Should come from start of URL
-        # TODO: address sometimes has title as suffix eg CT 140995/2
-        address, council_reference = column[1].text.strip().rsplit(' ', 1)
+        address = column[1].text.strip()
+        ctpos = address.find(' CT ')
+        if ctpos > 0:
+            address = address.split(' CT ', 1)[0]
+        council_reference = column[4].text.rsplit('–', 1)[0].strip()
         date_received = parse(column[2].text).strftime('%Y-%m-%d')
         on_notice_to = parse(column[3].text).strftime('%Y-%m-%d')
         info_url = column[4].find('a')['href']
@@ -42,4 +44,4 @@ if __name__ == '__main__':
     records = councildas()
     for record in records:
         logging.debug(record)
-        scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
+        # scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
