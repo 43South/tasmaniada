@@ -15,6 +15,7 @@ def councildas():
     for da in dalist.find_all('tr'):
         cells = da.find_all('td')
         if len(cells) > 0:
+            # TODO: Address sometimes has titles of form CT114677/105, semicolon seperated. Could strip.
             address = cells[0].text + ', Tasmania, Australia'
             on_notice_from = datetime.strptime(cells[1].text, '%d %b %Y').strftime('%Y-%m-%d')
             on_notice_to = datetime.strptime(cells[2].text, '%d %b %Y').strftime('%Y-%m-%d')

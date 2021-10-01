@@ -37,3 +37,9 @@ if __name__ == '__main__':
         logging.debug(record)
         scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
     logging.info('finished')
+
+# TODO: pull out all URLS
+# TODO: all fields in all scrapers in 'right' order
+# TODO: removed database writing from all scrapers?
+# TODO: retry loops around scraping
+# TODO: parent class that does the scraping

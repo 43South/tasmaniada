@@ -15,6 +15,7 @@ def councildas():
     records = []
     for da in das:
         text = da.find('a').text
+        # TODO: one case of double reference, 'SA 05-2012-75 & 51' Tricky to parse
         council_reference = ' '.join(text.split(' ', 2)[0:2]).strip()
         address = text.split(' ', 2)[2].rsplit('(')[0].lstrip(' -').rstrip() + ', Tasmania, Australia'
         description = 'development'

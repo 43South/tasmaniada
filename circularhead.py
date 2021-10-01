@@ -6,6 +6,9 @@ import logging
 
 # This is horribly fragile
 
+# TODO: scraper failing
+
+
 def councildas():
     applications_url = 'https://www.circularhead.tas.gov.au/council-services/development/planning'
     html = scraperwiki.scrape(applications_url)

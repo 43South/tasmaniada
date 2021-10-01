@@ -17,7 +17,7 @@ def councildas():
         text = da.find('span').text.strip()
         council_reference = text.split('-')[0].strip()
         address = text.split('-', 1)[1].strip() + ', Tasmania, Australia'
-        description = 'devvelopment'
+        description = 'development'
         info_url =  da.find('a')['href']
         record = {
           'council_reference': council_reference,

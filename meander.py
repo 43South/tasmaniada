@@ -5,6 +5,8 @@ from datetime import datetime
 from dateutil.parser import parse
 import logging
 
+# TODO PA\21\0305 was scraped but not saved
+
 def councildas():
     applications_url = 'https://www.meander.tas.gov.au/advertised-approved-planning-applications'
     html = scraperwiki.scrape(applications_url)
@@ -16,7 +18,10 @@ def councildas():
         datr = da.find_previous('tr')
         council_reference = datr.find('a').text
         lines = datr.find_next('strong', string='Address: ').parent.prettify().splitlines()
+        # TODO: Addresses are garbled
         address = lines[19].rsplit('(', 2)[0].strip() + ', Tasmania, Australia'
+        # TODO: some descriptions are garbled
+        # TODO: strip out entities such as &amp;
         description = lines[24].strip()
         info_url =  'https://www.meander.tas.gov.au/' + datr.find('a')['href']
         on_notice_to = parse(lines[-2]).strftime('%Y-%m-%d')

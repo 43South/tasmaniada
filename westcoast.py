@@ -5,6 +5,8 @@ from datetime import datetime
 from dateutil.parser import parse
 import logging
 
+# TODO: failed
+
 def councildas():
     applications_url = 'https://www.westcoast.tas.gov.au/public-and-environmental-health/planning/planning-applications'
     html = scraperwiki.scrape(applications_url)

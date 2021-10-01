@@ -14,6 +14,7 @@ def councildas():
     das = page('h4', 'non_table_headers')
     records = []
     for da in das:
+        # todo: add Australia to address (but put postcode last). Not urgent as they put TAS into it already
         address = da.text
         info_url = 'https://eservices.dorset.tas.gov.au' + da.find('a')['href']
         council_reference = da.find_next('span', text='Application No.').next_sibling.text

@@ -15,7 +15,7 @@ def councildas():
     records = []
     for da in das:
         description = da.next_sibling
-        address = da.parent.next_sibling
+        # TODO: council_reference is WRONG. This is the land title. Referenc is in heading above
         address, council_reference = da.find_next('strong', string=re.compile('LOCATION')).next_sibling.rsplit('(', 1)
         info_url = 'https://georgetown.tas.gov.au/' + da.find_next('a')['href']
         on_notice_to = parse(da.find_next('strong', string=re.compile('CLOSES')).next_sibling.strip()).strftime('%Y-%m-%d')

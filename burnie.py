@@ -18,6 +18,7 @@ def councildas():
         council_reference = da.find('p', 'da-application-number').text
         description = da('p')[-1].text
         info_url = da.find('a')['href']
+        # TODO: should cut off the postcode from address
         address = da.find('p', 'list-item-address').text + ', Tasmania, Australia'
         on_notice_to = parse(da.find('p', 'display-until-date').text[ondisplayprefix:]).strftime('%Y-%m-%d')
         record = {

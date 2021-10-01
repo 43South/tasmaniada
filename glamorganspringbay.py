@@ -18,6 +18,8 @@ def councildas():
         if len(column) == 0:
             continue
         description = column[0].text.strip()
+        # TODO: council_reference is WRONG. Should come from start of URL
+        # TODO: address sometimes has title as suffix eg CT 140995/2
         address, council_reference = column[1].text.strip().rsplit(' ', 1)
         date_received = parse(column[2].text).strftime('%Y-%m-%d')
         on_notice_to = parse(column[3].text).strftime('%Y-%m-%d')
