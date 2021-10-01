@@ -16,7 +16,7 @@ councils = ['breakoday', 'brighton', 'burnie', 'centralcoast', 'centralhighlands
 # councils = ['breakoday', 'brighton']
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     logging.info('starting')
     records = []
     for council in councils:
@@ -25,8 +25,12 @@ if __name__ == '__main__':
             newrecords = parser.councildas()
             logging.info(f'{council}: found {len(newrecords)} applications')
             for record in newrecords:
-                record['authority_label'] = council
-            records = records + newrecords
+                # this is a bit clumsy, but it's so authority_label is first key and hence first database field
+                recordwithauthority = {'authority_label': council}
+                recordwithauthority.update(record)
+                records.append(recordwithauthority)
+                # record['authority_label'] = council
+            # records = records + newrecords
         except Exception as e:
             logging.error(f'failed to run for {council}')
     for record in records:
