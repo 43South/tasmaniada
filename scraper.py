@@ -16,18 +16,20 @@ councils = ['breakoday', 'brighton', 'burnie', 'centralcoast', 'centralhighlands
 # councils = ['breakoday', 'brighton']
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
+    logging.info('starting')
     records = []
     for council in councils:
-        logging.debug(council)
         parser = importlib.import_module(council)
         try:
             newrecords = parser.councildas()
+            logging.info(f'{council}: found {len(newrecords)} applications')
+            for record in newrecords:
+                record['authority_label'] = council
+            records = records + newrecords
         except Exception as e:
             logging.error(f'failed to run for {council}')
-        for record in newrecords:
-            record['authority_label'] = council
-        records = records + newrecords
     for record in records:
         logging.debug(record)
         scraperwiki.sqlite.save(unique_keys=['council_reference'], data=record, table_name='data')
+    logging.info('finished')
